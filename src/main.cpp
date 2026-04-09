@@ -7,12 +7,18 @@ void setup(void)
 {
     M5.begin();
     lv_init();
-    init_tick();
-    init_display();
 
-    lv_obj_t *label = lv_label_create(lv_screen_active());
-    lv_label_set_text(label, "Hello Arduino, I'm LVGL!");
-    lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+    init_tick();
+    auto display = init_display();
+    auto indev = init_indev();
+    lv_indev_set_display(indev, display);
+
+    lv_obj_t *button = lv_button_create(lv_screen_active());
+    lv_obj_center(button);
+
+    lv_obj_t *label = lv_label_create(button);
+    lv_label_set_text(label, "Hello, M5Unified!");
+    lv_obj_center(label);
 }
 
 void loop(void)

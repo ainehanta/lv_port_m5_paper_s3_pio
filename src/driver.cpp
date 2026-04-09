@@ -73,3 +73,28 @@ lv_display_t *init_display(void)
 
     return disp;
 }
+
+void _read_cb(lv_indev_t *indev, lv_indev_data_t *data)
+{
+    uint16_t touchX, touchY;
+
+    bool touched = M5.Display.getTouch(&touchX, &touchY);
+    if (!touched)
+    {
+        data->state = LV_INDEV_STATE_REL;
+    }
+    else
+    {
+        data->state = LV_INDEV_STATE_PR;
+        data->point.x = touchX;
+        data->point.y = touchY;
+    }
+}
+
+lv_indev_t *init_indev(void)
+{
+    lv_indev_t *indev = lv_indev_create();
+    lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER);
+    lv_indev_set_read_cb(indev, _read_cb);
+    return indev;
+}
