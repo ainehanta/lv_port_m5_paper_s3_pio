@@ -25,4 +25,5 @@ void loop(void)
 {
     M5.update();
     lv_timer_handler();
+    M5.delay(5);
 }
