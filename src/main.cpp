@@ -1,7 +1,8 @@
-#include <lvgl.h>
 #include <M5Unified.h>
+#include <lvgl.h>
 
 #include "./driver.hpp"
+#include "./app.hpp"
 
 void setup(void)
 {
@@ -13,12 +14,7 @@ void setup(void)
     auto indev = init_indev();
     lv_indev_set_display(indev, display);
 
-    lv_obj_t *button = lv_button_create(lv_screen_active());
-    lv_obj_center(button);
-
-    lv_obj_t *label = lv_label_create(button);
-    lv_label_set_text(label, "Hello, M5Unified!");
-    lv_obj_center(label);
+    app();
 }
 
 void loop(void)
