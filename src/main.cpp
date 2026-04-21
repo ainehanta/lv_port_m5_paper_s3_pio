@@ -9,6 +9,7 @@ void setup(void)
     M5.begin();
     lv_init();
 
+    init_log();
     init_tick();
     auto display = init_display();
     auto indev = init_indev();

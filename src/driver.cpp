@@ -1,6 +1,36 @@
 #include <lvgl.h>
 #include <M5Unified.hpp>
 
+void _print_cb(lv_log_level_t level, const char *buf)
+{
+    switch (level)
+    {
+    case LV_LOG_LEVEL_TRACE:
+        M5_LOGV("%s", buf);
+        break;
+    case LV_LOG_LEVEL_INFO:
+        M5_LOGD("%s", buf);
+        break;
+    case LV_LOG_LEVEL_WARN:
+        M5_LOGW("%s", buf);
+        break;
+    case LV_LOG_LEVEL_ERROR:
+        M5_LOGE("%s", buf);
+        break;
+    case LV_LOG_LEVEL_USER:
+        M5_LOGI("%s", buf);
+        break;
+    default:
+        M5_LOGD("%s", buf);
+        break;
+    }
+};
+
+void init_log(void)
+{
+    lv_log_register_print_cb(_print_cb);
+}
+
 uint32_t _tick(void)
 {
     return M5.millis();
